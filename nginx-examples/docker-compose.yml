@@ -1,0 +1,48 @@
+services:
+  backend1:
+    build: .
+    environment:
+      - SERVER_NAME=backend-1
+      - PORT=3000
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+    
+  backend2:
+    build: .
+    environment:
+      - SERVER_NAME=backend-2
+      - PORT=3000
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+
+  backend3:
+    build: .
+    environment:
+      - SERVER_NAME=backend-3
+      - PORT=3000
+    ports:
+      - "3003:3000"
+    networks:
+      - app-network
+
+  nginx:
+    build: ./nginx-weighted
+    environment:
+      - SERVER_NAME=nginx
+      - PORT=80
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+    networks:
+      - app-network
+      
+networks:
+  app-network:
+    driver: bridge
