@@ -16,7 +16,8 @@ app.get('/', (req, res) => {
     port: port,
     requests: requestCount,
     timestamp: new Date().toISOString(),
-    message: `Hello from ${serverName}!`
+    message: `Hello from ${serverName}!`,
+    body: req.headers
   })
 })
 
