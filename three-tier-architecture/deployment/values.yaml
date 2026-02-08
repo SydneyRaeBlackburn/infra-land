@@ -1,0 +1,15 @@
+# deployment values
+deployment:
+  replicas: 1
+  image: 
+    repository: three-tier-api
+    tag: latest
+    pullPolicy: IfNotPresent
+  port: 8080
+
+# service values
+service:
+  protocol: TCP
+  port: 80
+  targetPort: 8080
+  type: NodePort
