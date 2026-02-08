@@ -4,8 +4,6 @@ services:
     environment:
       - SERVER_NAME=backend-1
       - PORT=3000
-    ports:
-      - "3001:3000"
     networks:
       - app-network
     
@@ -13,9 +11,7 @@ services:
     build: .
     environment:
       - SERVER_NAME=backend-2
-      - PORT=3000
-    ports:
-      - "3002:3000"
+      - PORT=3001
     networks:
       - app-network
 
@@ -23,9 +19,7 @@ services:
     build: .
     environment:
       - SERVER_NAME=backend-3
-      - PORT=3000
-    ports:
-      - "3003:3000"
+      - PORT=3002
     networks:
       - app-network
 
