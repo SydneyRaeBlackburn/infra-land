@@ -1,0 +1,19 @@
+# deployment values
+deployment:
+  replicas: 1
+  image: 
+    repository: test-app
+    tag: "" # set in Chart
+    pullPolicy: IfNotPresent
+  port: 8080
+  portName: http
+  protocol: TCP
+  HTTPpath: /
+  autoPromote: false
+
+# service values
+service:
+  protocol: TCP
+  port: 80
+  targetPort: 8080
+  type: NodePort

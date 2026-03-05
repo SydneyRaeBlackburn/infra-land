@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  strategy:
+    blueGreen:
+      activeService: {{ .Release.Name }}
+      previewService: {{ .Release.Name }}-preview
+      autoPromotionEnabled: {{ .Values.deployment.autoPromote }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.deployment.image.repository }}:{{ .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - name: {{ .Values.deployment.portName }}
+              containerPort: {{ .Values.deployment.port }}
+              protocol: {{ .Values.deployment.protocol }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.deployment.HTTPpath }}
+              port: {{ .Values.deployment.portName }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.deployment.HTTPpath }}
+              port: {{ .Values.deployment.portName }}
