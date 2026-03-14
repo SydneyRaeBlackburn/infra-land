@@ -9,11 +9,6 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-  strategy:
-    blueGreen:
-      activeService: {{ .Release.Name }}
-      previewService: {{ .Release.Name }}-preview
-      autoPromotionEnabled: {{ .Values.deployment.autoPromote }}
   template:
     metadata:
       labels:
@@ -35,3 +30,32 @@ spec:
             httpGet:
               path: {{ .Values.deployment.HTTPpath }}
               port: {{ .Values.deployment.portName }}
+  strategy:
+    canary:
+      canaryService: {{ .Release.Name }}-canary
+      stableService: {{ .Release.Name }}-stable
+      trafficRouting:
+        istio:
+          virtualServices:
+          - name: {{ .Release.Name }}-vsvc
+            routes:
+            - primary
+      steps:
+      - setWeight: 10
+      - pause: {} # pause indefinitely
+      - setWeight: 20
+      - pause: {duration: 20s}
+      - setWeight: 30
+      - pause: {duration: 20s}
+      - setWeight: 40
+      - pause: {duration: 20s}
+      - setWeight: 50
+      - pause: {duration: 20s}
+      - setWeight: 60
+      - pause: {duration: 20s}
+      - setWeight: 70
+      - pause: {duration: 20s}
+      - setWeight: 80
+      - pause: {duration: 20s}
+      - setWeight: 90
+      - pause: {duration: 20s}

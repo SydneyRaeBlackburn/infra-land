@@ -10,6 +10,7 @@ deployment:
   protocol: TCP
   HTTPpath: /
   autoPromote: false
+  scaleDownDelaySeconds: 30
 
 # service values
 service:
@@ -17,3 +18,21 @@ service:
   port: 80
   targetPort: 8080
   type: NodePort
+
+# virtualService values
+vsvc:
+  hosts: [ "test-app.local" ]
+  http:
+    name: primary
+    stableHost: test-app-stable
+    stableWeight: 100
+    canaryHost: test-app-canary
+    canaryWeight: 0
+
+# gateway values
+gateway:
+  istio: istio-ingressgateway
+  port: 80
+  portName: http
+  protocol: HTTP
+  hosts: ["*"]

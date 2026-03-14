@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}-vsvc
+spec:
+  gateways:
+  - {{ .Release.Name }}-gateway
+  hosts:
+  - test-app.local
+  http:
+  - name: {{ .Values.vsvc.name }}
+    route:
+    - destination:
+        host: {{ .Values.vsvc.http.stableHost }}
+      weight: {{ .Values.vsvc.http.stableWeight }}
+    - destination:
+        host: {{ .Values.vsvc.http.canaryHost }}
+      weight: {{ .Values.vsvc.http.canaryWeight }}

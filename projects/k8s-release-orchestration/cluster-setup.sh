@@ -14,6 +14,7 @@ minikube start \
 # Install Istio
 minikube addons enable istio-provisioner --profile=$PROFILE
 minikube addons enable istio --profile=$PROFILE
+kubectl label namespace default istio-injection=enabled
 
 # Install Argo Rollouts
 kubectl create namespace argo-rollouts
