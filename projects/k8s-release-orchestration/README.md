@@ -18,15 +18,14 @@ Build an Operator that manages canary deployments using Argo Rollouts and Istio.
 
 3. Test basic deployment
   - Deploy versioned `test-app` with Helm
-  - Manually create Argo Rollout resource and verify traffic switching works
+  - Create Argo Rollout resource and verify traffic switching works
 
 #### TODO
-- Implement test versioning (short uuids) and automate with deploy command
+- ~~Implement versioning (short uuids) and automate with deploy command~~
 - ~~Figure out why Argo is auto promoting when it's disabled~~
   - ~~Look into [autoPromotionSeconds](https://argo-rollouts.readthedocs.io/en/stable/features/bluegreen/#autopromotionseconds)~~
 - ~~[Traffic switch with Istio](https://argo-rollouts.readthedocs.io/en/stable/getting-started/istio/)~~
-- Generate array from values in deployment templates
-- Add Nginx to access app and test traffic distribution during deployment
+- ~~Access app and test traffic distribution during deployment~~
 
 #### Future Implementations
 - [Trivy Operator](https://github.com/aquasecurity/trivy-operator) - runtime container scanning
