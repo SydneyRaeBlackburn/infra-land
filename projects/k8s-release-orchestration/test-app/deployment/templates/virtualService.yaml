@@ -6,9 +6,9 @@ spec:
   gateways:
   - {{ .Release.Name }}-gateway
   hosts:
-  - test-app.local
+  - "*"
   http:
-  - name: {{ .Values.vsvc.name }}
+  - name: {{ .Values.vsvc.http.name }}
     route:
     - destination:
         host: {{ .Values.vsvc.http.stableHost }}

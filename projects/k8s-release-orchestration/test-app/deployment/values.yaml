@@ -1,10 +1,11 @@
+image: 
+  repository: test-app
+  tag: "" # set in Chart
+  pullPolicy: IfNotPresent
+
 # deployment values
 deployment:
   replicas: 1
-  image: 
-    repository: test-app
-    tag: "" # set in Chart
-    pullPolicy: IfNotPresent
   port: 8080
   portName: http
   protocol: TCP
@@ -31,8 +32,8 @@ vsvc:
 
 # gateway values
 gateway:
-  istio: istio-ingressgateway
-  port: 80
+  istio: ingressgateway
+  port: 8080
   portName: http
   protocol: HTTP
   hosts: ["*"]

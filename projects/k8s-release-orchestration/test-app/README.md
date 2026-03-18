@@ -14,9 +14,9 @@ $ helm upgrade test-app ./test-app/deployment/ \
 
 ## Access API
 ```bash
-$ kubectl port-forward svc/test-app-<stable/canary> 8080:80
+$ kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 --address=0.0.0.0
 
-$ curl http://127.0.0.1:8080/
+$ curl http://localhost:8080/
 ```
 
 # Uninstall

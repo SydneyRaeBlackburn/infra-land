@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}
-          image: {{ .Values.deployment.image.repository }}:{{ .Chart.AppVersion }}
-          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: {{ .Values.deployment.portName }}
               containerPort: {{ .Values.deployment.port }}
