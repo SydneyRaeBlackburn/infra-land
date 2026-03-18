@@ -1,4 +1,11 @@
 # Recreate
+Set strategy in `deployment.yaml` to `Recreate`:
+```yaml
+  ...
+  strategy:
+    type: Recreate
+  ...
+```
 
 ## Build & Deploy
 ```bash
