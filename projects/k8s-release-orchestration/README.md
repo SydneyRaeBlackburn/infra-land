@@ -44,7 +44,35 @@ Build an Operator that manages canary deployments using Argo Rollouts and Istio.
   - ~~Look into [autoPromotionSeconds](https://argo-rollouts.readthedocs.io/en/stable/features/bluegreen/#autopromotionseconds)~~
 - ~~[Traffic switch with Istio](https://argo-rollouts.readthedocs.io/en/stable/getting-started/istio/)~~
 - ~~Access app and test traffic distribution during deployment~~
+- Verify cluster setup installs were successful
+- Add call count to api, output in distribution test
 
 #### Future Implementations
 - [Trivy Operator](https://github.com/aquasecurity/trivy-operator) - runtime container scanning
 - [checkov](https://github.com/bridgecrewio/checkov) - IaC scanner
+
+## Setup
+
+### Install
+```sh
+$ ./cluster-setup.sh
+
+$ make install
+```
+
+### Deploy
+```sh
+$ make deploy
+```
+
+## Access
+```sh
+$ kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
+
+$ curl http://localhost:8080/
+```
+
+## Teardown
+```sh
+$ ./cluster-teardown.sh
+```

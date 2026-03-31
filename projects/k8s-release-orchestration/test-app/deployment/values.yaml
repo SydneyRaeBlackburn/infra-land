@@ -22,7 +22,7 @@ service:
 
 # virtualService values
 vsvc:
-  hosts: [ "test-app.local" ]
+  hosts: ["*"]
   http:
     name: primary
     stableHost: test-app-stable
