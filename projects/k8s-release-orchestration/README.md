@@ -46,6 +46,7 @@ Build an Operator that manages canary deployments using Argo Rollouts and Istio.
 - ~~Access app and test traffic distribution during deployment~~
 - Verify cluster setup installs were successful
 - Add call count to api, output in distribution test
+- Update [Gateway](https://istio.io/latest/docs/setup/additional-setup/gateway/) to shared
 
 #### Future Implementations
 - [Trivy Operator](https://github.com/aquasecurity/trivy-operator) - runtime container scanning

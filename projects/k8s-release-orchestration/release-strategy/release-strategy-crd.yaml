@@ -1,0 +1,78 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: releasestrategies.platform.dev
+spec:
+  group: platform.dev
+  scope: Namespaced
+  names:
+    plural: releasestrategies
+    singular: releasestrategy
+    kind: ReleaseStrategy
+    shortNames:
+    - rs
+  versions:
+    - name: v1beta1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required: [appName, appImage, canary, metrics]
+              properties:
+                appName:
+                  type: string
+                appImage:
+                  type: string
+                canary:
+                  type: object
+                  properties:
+                    initialTrafficPercent:
+                      type: integer
+                      minimum: 1
+                      maximum: 50
+                      default: 10
+                    maxTrafficPercent:
+                      type: integer
+                      minimum: 50
+                      maximum: 100
+                      default: 100
+                    trafficIncrementPercent:
+                      type: integer
+                      minimum: 5
+                      maximum: 100
+                      default: 10
+                    trafficIncrementIntervalSeconds:
+                      type: integer
+                      minimum: 5
+                      maximum: 60
+                      default: 10
+                metrics:
+                  type: object
+                  properties:
+                    errorRateThreshold:
+                      type: number
+                    latencyP95Threshold:
+                      type: integer
+                    metricsCheckIntervalSeconds:
+                      type: integer
+                      minimum: 5
+                      maximum: 60
+                # ... need rollbackOn and istio ?
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  enum: [Pending, Progressing, Succeeded, Failed, RolledBack]
+                currentTrafficPercent:
+                  type: integer
+                metricsStatus:
+                  type:
+                  enum: [Healthy, Failed]
+                lastUpdated:
+                  type: string
+                  format: date-time

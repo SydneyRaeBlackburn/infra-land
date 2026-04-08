@@ -1,0 +1,24 @@
+apiVersion: platform.dev/v1beta1
+kind: ReleaseStrategy
+metadata:
+  name: {{ .Release.Name }}-release-strategy
+  namesapce: default
+spec:
+  appName: {{ .Release.Name }}
+  appImage: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+  canary:
+    initialTrafficPercent: 10
+    maxTrafficPercent: 100
+    trafficIncrementPercent: 20
+    trafficIncrementIntervalSeconds: 20
+  metrics:
+    errorRateThreshold: 5
+    latencyP95Threshold: 500
+    metricsCheckIntervalSeconds: 5s
+  rollbackOn:
+    - errorRateExceeded
+    - latencyExceeded
+    - timeout: 10m
+  istio:
+    virtualServiceName: {{ .Release.Name }}-vsvc
+    destinationRule: {{ .Release.Name }}-dr
