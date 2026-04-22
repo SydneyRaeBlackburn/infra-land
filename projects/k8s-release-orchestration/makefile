@@ -1,6 +1,8 @@
 VERSION := $(shell uuidgen | cut -c1-8)
 PROFILE := release-orchestration
 
+.PHONY: build install template deploy uninstall
+
 build:
 	docker build -t test-app:$(VERSION) ./test-app/api && \
 	minikube image load test-app:$(VERSION) --profile=$(PROFILE)
